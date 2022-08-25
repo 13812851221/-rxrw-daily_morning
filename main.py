@@ -75,3 +75,4 @@ res = wm.send_template(user_id, template_id, data)
 res2 = wm.send_template(user_id2, template_id, data)
 print(res)
 print(res2)
+
