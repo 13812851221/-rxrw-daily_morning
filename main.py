@@ -37,7 +37,7 @@ def get_birthday():
 def get_words():
   words = requests.get("https://api.shadiao.pro/chp")
   if words.status_code != 200:
-    return get_words()
+    return "一想到你，我这张脸就泛起微笑，爱你就像爱生命"
   return words.json()['data']['text']
 
 def get_random_color():
