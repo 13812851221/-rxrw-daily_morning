@@ -18,7 +18,7 @@ user_id = os.environ["USER_ID"]
 template_id = os.environ["TEMPLATE_ID"]
 
 
-def get_weather1():
+def get_weather():
   url = "http://api.tianapi.com/tianqi/index?key= 8a1a8aabc5bce0999dc9fc57e0b31f80&city=" + city
   res1 = requests.get(url).json()
   muzi = res1['newslist'][0]
