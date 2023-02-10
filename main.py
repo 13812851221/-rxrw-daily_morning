@@ -26,7 +26,7 @@ def get_weather():
   print("res======>",res['lives'])
   print("weather=====>",weather)
   print("temperature=====>",weather['temperature'])
-  print("math=====>"math.floor(weather['temperature']))
+  print("math=====>",math.floor(weather['temperature']))
   return weather['weather'], math.floor(weather['temperature'])
 
 def get_count():
