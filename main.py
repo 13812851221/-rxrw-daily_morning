@@ -26,8 +26,8 @@ def get_weather():
   print("res======>",res['lives'])
   print("weather=====>",weather)
   print("temperature=====>",weather['temperature'])
-  print("math=====>",math.floor(weather['temperature']))
-  return weather['weather'], math.floor(weather['temperature'])
+  print("math=====>",math.floor(int(weather['temperature'])))
+  return weather['weather'], math.floor(int(weather['temperature']))
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
