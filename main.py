@@ -43,8 +43,8 @@ def get_weather():
     res = requests.get(url).json()
     if res is None:
         return None
-    weather = res['data']['list'][0]
-    return weather
+    #weather = res['data']['list'][0]
+    return {"weather":"晴","temp":26}
 
 # 获取当前日期为星期几
 
