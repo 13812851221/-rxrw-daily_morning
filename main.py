@@ -30,7 +30,7 @@ def get_weather():
         else:
             print('Get Weather Failed')
             return "晴","23"
-    except Exception:
+  except (ConnectionError, ReadTimeout):
         print('Crawling Failed')
         return "晴","23"
       
