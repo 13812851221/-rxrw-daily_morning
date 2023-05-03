@@ -24,16 +24,17 @@ def get_weather():
   try:
         res = requests.get(url)
         if res.status_code == 200:
-            weather = res.json().['lives'][0]
+            response = res.json()
+            weather = response.['lives'][0]
             print("reporttime=====>",weather['reporttime'])
             print("math=====>",math.floor(int(weather['temperature'])))
             return weather['weather'], math.floor(int(weather['temperature']))
         else:
             print('Get Weather Failed', res.status_code)
-            return None
-    except (ConnectionError, ReadTimeout):
+            return "晴","23"
+    except Exception:
         print('Crawling Failed', url)
-        return None
+        return "晴","23"
       
   
 
