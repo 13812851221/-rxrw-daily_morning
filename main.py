@@ -21,18 +21,9 @@ weather_key = os.environ["WEATHER_KEY"]
 
 def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key+"&city=130600"
-  try:
-        responsevo = requests.get(url)
-        if responsevo.status_code == 200:
-          res = requests.get(url).json()
-          weather = res['lives'][0]
-          return weather['weather'], math.floor(int(weather['temperature']))
-        else:
-            print('Get Weather Failed')
-            return "晴","23"
-  except (ConnectionError, ReadTimeout):
-        print('Crawling Failed')
-        return "晴","23"
+  res = requests.get(url).json()
+  weather = res['lives'][0]
+  return weather['weather'], math.floor(int(weather['temperature']))
       
   
 
