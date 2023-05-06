@@ -3,8 +3,6 @@ import math
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
-from requests.packages import urllib3
-urllib3.disable_warnings()
 import os
 import random
 
@@ -24,7 +22,7 @@ weather_key = os.environ["WEATHER_KEY"]
 def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key+"&city=130600"
   print('获取天气url：',url)
-  res = requests.get(url,verify = False).json()
+  res = requests.get(url).json()
   print('获取天气结果：',res)
   weather = res['lives'][0]
   return weather['weather'], math.floor(int(weather['temperature']))
@@ -42,7 +40,7 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://api.shadiao.pro/chp",verify = False)
+  words = requests.get("https://api.shadiao.pro/chp")
   print('获取文案：',words)
   if words.status_code != 200:
     return '一想到你，我这张脸就泛起微笑'
