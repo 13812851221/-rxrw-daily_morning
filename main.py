@@ -21,7 +21,7 @@ weather_key = os.environ["WEATHER_KEY"]
 
 def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key+"&city=130600"
-  res = requests.get(url).json()
+  res = requests.get(url,verify = False).json()
   weather = res['lives'][0]
   return weather['weather'], math.floor(int(weather['temperature']))
       
@@ -38,7 +38,7 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://api.shadiao.pro/chp")
+  words = requests.get("https://api.shadiao.pro/chp",verify = False)
   if words.status_code != 200:
     return '一想到你，我这张脸就泛起微笑'
   return words.json()['data']['text']
