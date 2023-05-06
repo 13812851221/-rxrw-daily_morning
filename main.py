@@ -2,7 +2,8 @@ from datetime import date, datetime
 import math
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
-import requests
+from requests.packages import urllib3
+urllib3.disable_warnings()
 import os
 import random
 
