@@ -22,10 +22,10 @@ weather_key = os.environ["WEATHER_KEY"]
 def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key+"&city=130600"
   print('获取天气url：',url)
-  res = requests.get(url).json()
-  print('获取天气结果：',requests.get(url))
-  print('获取天气结果JSON：',res)
-  weather = res['lives'][0]
+  res = requests.get(url)
+  print('获取天气结果：',res)
+  print('获取天气结果JSON：',res.json())
+  weather = res.json()['lives'][0]
   return weather['weather'], math.floor(int(weather['temperature']))
       
   
