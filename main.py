@@ -44,9 +44,9 @@ def get_birthday():
 
 def get_words():
   try:
-    words = requests.get("https://api.shadiao.pro/chp").json()
-    print('获取文案JSON：',words)
-    return words['data']['text']
+    words = requests.get("https://api.shadiao.pro/chp",20)
+    print('获取文案JSON：',words.json())
+    return words.json()['data']['text']
  except:
     print('获取文案出现异常')
     return '一想到你，我这张脸就泛起微笑——梁育德TO陈明'
