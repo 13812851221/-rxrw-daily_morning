@@ -23,7 +23,7 @@ def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key+"&city=130600"
   try:
     print('获取天气url：',url)
-    res = requests.get(url,20)
+    res = requests.get(url,timeout=20)
     print('获取天气结果：',res.json['lives'][0])
     weather = res.json['lives'][0]
     return weather['weather'], math.floor(int(weather['temperature']))
@@ -44,7 +44,7 @@ def get_birthday():
 
 def get_words():
   try:
-    words = requests.get("https://api.shadiao.pro/chp",20)
+    words = requests.get("https://api.shadiao.pro/chp",timeout=20)
     print('获取文案JSON：',words.json())
     return words.json()['data']['text']
   except:
