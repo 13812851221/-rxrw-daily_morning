@@ -31,7 +31,7 @@ def get_weather():
     return weather['weather'], math.floor(int(weather['temperature']))
   except:
     print('获取天气出现异常===天气结束时间：',datetime.now())
-    return '如往常','比较正常'
+    return '-','-'
 
 
 def get_count():
