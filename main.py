@@ -23,16 +23,12 @@ s.mount('https://', HTTPAdapter(max_retries=3))
 
 def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key +"&city=130600"
-  try:
-    print('start===天气开始时间：',datetime.now())
-    res = s.get(url,timeout=20)
-    print('获取天气结果：',res)
-    weather = res.json()['lives'][0]
-    print('获取天气结果222：',weather)
-    return weather['weather'], math.floor(int(weather['temperature']))
-  except:
-    print('获取天气出现异常===天气结束时间：',datetime.now())
-    return '-','-'
+  res = s.get(url,timeout=20)
+  print('获取天气结果：',res)
+  weather = res.json()['lives'][0]
+  print('获取天气结果222：',weather)
+  return weather['weather'], math.floor(int(weather['temperature']))
+
 
 
 def get_count():
@@ -46,15 +42,11 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  try:
-    print('start===文案开始时间：',datetime.now())
-    words = s.get("https://api.shadiao.pro/chp",timeout=20)
-    newwords = words.json()['data']['text']
-    print('获取文案JSON：',newwords)
-    return newwords
-  except:
-    print('获取文案出现异常===文案结束时间：',datetime.now())
-    return '一想到你，我这张脸就泛起微笑——梁育德TO陈明'
+  print('start===文案开始时间：',datetime.now())
+  words = s.get("https://api.shadiao.pro/chp",timeout=20)
+  newwords = words.json()['data']['text']
+  print('获取文案JSON：',newwords)
+  return newwords
   
   
 
