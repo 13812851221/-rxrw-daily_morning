@@ -46,7 +46,7 @@ def get_words():
   words = s.get("https://api.shadiao.pro/chp",timeout=20)
   newwords = words.json()['data']['text']
   print('获取文案JSON：',newwords)
-  return ""+newwords
+  return newwords
   
   
 
@@ -64,5 +64,6 @@ data = {"city":{"value":city, "color":get_random_color()},
         "love_days":{"value":get_count(), "color":get_random_color()},
         "birthday_left":{"value":get_birthday(), "color":get_random_color()},
         "words":{"value":get_words(), "color":get_random_color()}}
+print('data:',data)
 res = wm.send_template(user_id, template_id, data)
-print(res)
+print('res:',res)
