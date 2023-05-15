@@ -46,7 +46,7 @@ def get_words():
   words = s.get("https://api.shadiao.pro/chp",timeout=20)
   newwords = words.json()['data']['text']
   print('获取文案JSON：',newwords)
-  return newwords
+  return ""+newwords
   
   
 
