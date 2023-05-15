@@ -3,6 +3,7 @@ import math
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
+from requests.adapters import HTTPAdapter
 import os
 import random
 
@@ -10,19 +11,25 @@ today = datetime.now()
 start_date = os.environ['START_DATE']
 city = os.environ['CITY']
 birthday = os.environ['BIRTHDAY']
-
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
-
 user_id = os.environ["USER_ID"]
 template_id = os.environ["TEMPLATE_ID"]
+weather_key = os.environ["WEATHER_KEY"]
 
+s = requests.Session()
+s.mount('http://', HTTPAdapter(max_retries=3))
+s.mount('https://', HTTPAdapter(max_retries=3))
 
 def get_weather():
-  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
-  res = requests.get(url).json()
-  weather = res['data']['list'][0]
-  return weather['weather'], math.floor(weather['temp'])
+  url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key +"&city=130600"
+  res = s.get(url)
+  print('获取天气结果：',res)
+  weather = res.json()['lives'][0]
+  print('获取天气结果222：',weather)
+  return weather['weather'], math.floor(int(weather['temperature']))
+
+
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
@@ -35,10 +42,14 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://api.shadiao.pro/chp")
-  if words.status_code != 200:
-    return get_words()
-  return words.json()['data']['text']
+  print('start===文案开始时间：',datetime.now())
+  words = s.get("https://api.shadiao.pro/chp")
+  newwords = words.json()['data']['text']
+  mywords = newwords.decode('unicode_escape')
+  print('获取文案JSON：',mywords)
+  return mywords
+  
+  
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
@@ -48,6 +59,10 @@ client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"weather":{"value":wea, "color":get_random_color()},
+        "temperature":{"value":temperature, "color":get_random_color()},
+        "love_days":{"value":get_count(), "color":get_random_color()},
+        "words":{"value":get_words(), "color":get_random_color()}}
+print('data:',data)
 res = wm.send_template(user_id, template_id, data)
-print(res)
+print('res:',res)
