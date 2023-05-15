@@ -45,7 +45,7 @@ def get_words():
   print('start===文案开始时间：',datetime.now())
   words = s.get("https://api.shadiao.pro/chp")
   newwords = words.json()['data']['text']
-  mywords = newwords.split('\', 1)[0]
+  mywords = [newwords.encode('utf-8') for newwords in mywords]
   print('获取文案JSON：',mywords)
   return newwords
   
