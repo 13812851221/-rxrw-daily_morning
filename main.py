@@ -26,7 +26,7 @@ def get_weather():
     print('start===天气开始时间：',datetime.now())
     res = requests.get(url,timeout=20)
     print('获取天气结果：',res.json()['lives'][0])
-    weather = res.json['lives'][0]
+    weather = res.json()['lives'][0]
     return weather['weather'], math.floor(int(weather['temperature']))
   except:
     print('end===天气结束时间：',datetime.now())
