@@ -23,7 +23,7 @@ s.mount('https://', HTTPAdapter(max_retries=3))
 
 def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key +"&city=130600"
-  res = s.get(url,timeout=20)
+  res = s.get(url)
   print('获取天气结果：',res)
   weather = res.json()['lives'][0]
   print('获取天气结果222：',weather)
@@ -43,7 +43,7 @@ def get_birthday():
 
 def get_words():
   print('start===文案开始时间：',datetime.now())
-  words = s.get("https://api.shadiao.pro/chp",timeout=20)
+  words = s.get("https://api.shadiao.pro/chp")
   newwords = words.json()['data']['text']
   print('获取文案JSON：',newwords)
   return newwords
@@ -58,11 +58,9 @@ client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"city":{"value":city, "color":get_random_color()},
-        "weather":{"value":wea, "color":get_random_color()},
+data = {"weather":{"value":wea, "color":get_random_color()},
         "temperature":{"value":temperature, "color":get_random_color()},
         "love_days":{"value":get_count(), "color":get_random_color()},
-        "birthday_left":{"value":get_birthday(), "color":get_random_color()},
         "words":{"value":get_words(), "color":get_random_color()}}
 print('data:',data)
 res = wm.send_template(user_id, template_id, data)
