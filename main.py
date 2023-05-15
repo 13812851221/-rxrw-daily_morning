@@ -21,13 +21,16 @@ weather_key = os.environ["WEATHER_KEY"]
 
 def get_weather():
   url = "https://restapi.amap.com/v3/weather/weatherInfo?key="+weather_key+"&city=130600"
-  print('获取天气url：',url)
-  res = requests.get(url).json
-  print('获取天气结果JSON：',res)
-  weather = res['lives'][0]
-  return weather['weather'], math.floor(int(weather['temperature']))
-      
-  
+  try:
+    print('获取天气url：',url)
+    res = requests.get(url,20)
+    print('获取天气结果：',res.json['lives'][0])
+    weather = res.json['lives'][0]
+    return weather['weather'], math.floor(int(weather['temperature']))
+ except:
+    print('获取天气出现异常')
+    return '如往常','比较正常'
+
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
@@ -40,9 +43,15 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://api.shadiao.pro/chp").json()
-  print('获取文案JSON：',words)
-  return words['data']['text']
+  try:
+    words = requests.get("https://api.shadiao.pro/chp").json()
+    print('获取文案JSON：',words)
+    return words['data']['text']
+ except:
+    print('获取文案出现异常')
+    return '一想到你，我这张脸就泛起微笑——梁育德TO陈明'
+  
+  
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
