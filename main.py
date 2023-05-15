@@ -48,7 +48,7 @@ def get_words():
   try:
     print('start===文案开始时间：',datetime.now())
     words = s.get("https://api.shadiao.pro/chp",timeout=20)
-    print('获取文案JSON：',words.json())
+    print('获取文案JSON：',words.json()['data']['text'])
     return words.json()['data']['text']
   except:
     print('获取文案出现异常===文案结束时间：',datetime.now())
