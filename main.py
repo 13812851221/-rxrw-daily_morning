@@ -27,7 +27,7 @@ def get_weather():
     print('获取天气结果：',res.json['lives'][0])
     weather = res.json['lives'][0]
     return weather['weather'], math.floor(int(weather['temperature']))
- except:
+  except:
     print('获取天气出现异常')
     return '如往常','比较正常'
 
@@ -47,7 +47,7 @@ def get_words():
     words = requests.get("https://api.shadiao.pro/chp",20)
     print('获取文案JSON：',words.json())
     return words.json()['data']['text']
- except:
+  except:
     print('获取文案出现异常')
     return '一想到你，我这张脸就泛起微笑——梁育德TO陈明'
   
